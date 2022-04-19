@@ -83,15 +83,35 @@ public class BinaryHeap {
 
         // 2. swap downwardly (percolate-down)
         while (!isLeaf(i)){ // navigating downwards is done in O(log_2(this.pos)), since a heap is a binary tree
-            if (this.nodes[i] > this.nodes[2*i+1] || this.nodes[i] > this.nodes[2*i+2]){
-                /* in order to keep the binary heap's order property true,
-                    picking the smallest child is mandatory */
-                if (this.nodes[2*i+1] < this.nodes[2*i+2]){
-                    this.swap(i,2*i+1);
-                    i = 2*i+1;
-                } else {
-                    this.swap(i,2*i+2);
-                    i = 2*i+2;
+            /* // not necessary since the loop condition covers this case as well
+            // if no left child, then no right child
+            if (2*i+1 > this.pos)
+                break;
+            */
+            // if there's a left child but no right child
+            // --> compare element with left child
+            if (2*i+2 >= this.pos) {
+                if (this.nodes[i] > this.nodes[2 * i + 1]) {
+                    this.swap(i, 2 * i + 1);
+                    i = 2 * i + 1;
+                }
+            }
+            // usual case
+            else {
+                if (this.nodes[i] > this.nodes[2*i+1] || this.nodes[i] > this.nodes[2*i+2]) {
+                    /* in order to keep the binary heap's order property true,
+                        picking the smallest child is mandatory */
+                    if (this.nodes[2 * i + 1] < this.nodes[2 * i + 2]) {
+                        this.swap(i, 2 * i + 1);
+                        i = 2 * i + 1;
+                    } else {
+                        this.swap(i, 2 * i + 2);
+                        i = 2 * i + 2;
+                    }
+                }
+                // if element is well-placed, we stop here
+                else {
+                    break;
                 }
             }
         }
@@ -118,7 +138,8 @@ public class BinaryHeap {
 	 * 
 	 */	
     private boolean isLeaf(int src) {
-        return 2* src +1 >= this.pos && 2* src +2 >= this.pos; // if no children, then it's a leaf
+        // if no children, then it's a leaf
+        return 2* src +1 >= this.pos && 2* src +2 >= this.pos;
     }
 
     /**
