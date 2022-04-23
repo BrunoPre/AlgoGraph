@@ -22,12 +22,14 @@ public class BinaryHeapEdge {
         return binh.isEmpty();
     }
 
+
     /**
 	 * Insert a new edge in the binary heap
 	 * 
 	 * @param from one node of the edge
 	 * @param to one node of the edge
 	 * @param val the edge weight
+	 * @implNote    O(log_2(this.pos))
 	 */
     public void insert(UndirectedNode from, UndirectedNode to, int val) {
 
@@ -58,18 +60,21 @@ public class BinaryHeapEdge {
 	 * Removes the root edge in the binary heap, and swap the edges to keep a valid binary heap
 	 *
 	 * @return the edge with the minimal value (root of the binary heap)
-	 *
+	 * @implNote O(log_2(this.pos))
 	 */
     public Triple<UndirectedNode,UndirectedNode,Integer> remove() {
+		// empty tree
 		if (isEmpty())
 			return null;
+		// one-leaf tree
+		if (isLeaf(0))
+			return this.binh.remove(0);
 
-		// 0. save root to return it at the end
-		Triple<UndirectedNode, UndirectedNode, Integer> root = this.binh.get(0);
+		// 0. remove & save root to return it at the end
+		Triple<UndirectedNode, UndirectedNode, Integer> root = this.binh.remove(0);
 
 		// 1. pop root and replace it with the last-used leaf
 		Triple<UndirectedNode, UndirectedNode, Integer> lastUsedLeaf = this.binh.remove(this.binh.size()-1);
-		this.binh.remove(0);
 		this.binh.add(0, lastUsedLeaf);
 		int i = 0;
 
@@ -82,6 +87,8 @@ public class BinaryHeapEdge {
 					this.swap(i, 2 * i + 1);
 					i = 2 * i + 1;
 				}
+				else
+					break;
 			}
 			// usual case
 			else {
@@ -233,8 +240,6 @@ public class BinaryHeapEdge {
             jarjarBin.insert(new UndirectedNode(k), new UndirectedNode(k+30), rand);            
             k--;
         }
-        // TODO: Complete
-
 
 		// print the heap's array
 		//System.out.println("\n" + jarjarBin);
