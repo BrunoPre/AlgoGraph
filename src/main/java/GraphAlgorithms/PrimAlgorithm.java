@@ -10,7 +10,7 @@ public class PrimAlgorithm {
     /* This is a class dedicated to Prim's algorithm using:
         * a binary heap storing visited sorted vertex's weight (among the adjacent vertices); covered vertex are removed
         * an undirected valued graph (the adjacency matrix implementation is used here) which represents the graph
-        * an set of visited vertices (to avoid cycles)
+        * a list of visited vertices (to avoid cycles)
      */
 
     public BinaryHeapEdge heap;
