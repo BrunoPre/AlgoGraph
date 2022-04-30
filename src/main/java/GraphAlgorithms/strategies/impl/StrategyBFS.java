@@ -6,6 +6,10 @@ import Nodes.AbstractNode;
 import java.util.*;
 import java.util.function.Function;
 
+/**
+ * Stratégie de parcours d'un graphe orienté en largeur.
+ * @param <T> le type de sommets parcourus
+ */
 public class StrategyBFS<T extends AbstractNode> extends ExplorationStrategy<T> {
     private Function<T, Set<T>> parentExtractor;
 
@@ -43,6 +47,12 @@ public class StrategyBFS<T extends AbstractNode> extends ExplorationStrategy<T> 
         return allPaths;
     }
 
+    /**
+     * Définie un sommet comme étant entièrement parcouru, et vérifie si son parent devient entièrement parcouru (càd {@code node} est le dernier enfant parcouru de son parent
+     * @param node La node entièrement parcourue
+     * @param visited La liste de tout les sommets visités
+     * @param propagationList La liste des sommets visités lors de la propagation (évite la boucle de récursion)
+     */
     private void setFullyVisitedAndPropagate(T node,Set<T> visited, Set<T> propagationList) {
         propagationList.add(node);
         lastEncounter[node.getLabel()] = count;

@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 
+/**
+ * Stratégie de parcours d'un graphe en profondeur
+ * @param <T> le type de sommets parcourus
+ */
 public class StrategyDFS<T extends AbstractNode> extends ExplorationStrategy<T> {
     public StrategyDFS(int size, Function<T, Set<T>> childExtractor) {
         super(size, childExtractor);
