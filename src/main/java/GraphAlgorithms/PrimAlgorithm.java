@@ -8,16 +8,16 @@ import java.util.*;
 
 public class PrimAlgorithm {
     /* This is a class dedicated to Prim's algorithm using:
-        * a binary heap storing visited sorted vertex's weight (among the adjacent vertices); covered vertex are removed
+        * a binary heap storing areVisited sorted vertex's weight (among the adjacent vertices); covered vertex are removed
         * an undirected valued graph (the adjacency matrix implementation is used here) which represents the graph
-        * a list of visited vertices (to avoid cycles)
+        * a list of areVisited vertices (to avoid cycles)
      */
 
     public BinaryHeapEdge heap;
 
     public UndirectedValuedGraph graph;
 
-    // list of nodes to be visited (built from the BFS done in the new Prim's algorithm)
+    // list of nodes to be areVisited (built from the BFS done in the new Prim's algorithm)
     public List<UndirectedNode> visitedNodes;
 
     public UndirectedValuedGraph minSpanningTree;
@@ -34,16 +34,12 @@ public class PrimAlgorithm {
 
     public void execPrimAlgorithm(UndirectedNode entryPointNode){
 
-        // if the method is called more than once
-        if (this.cost != 0)
-            this.cost = 0;
-
         // init the algorithm   O(1)
         UndirectedNode visitingNode = entryPointNode;
         visitingNode = this.graph.getNodes().get(visitingNode.getLabel());
         visitedNodes.add(visitingNode);
 
-        // stop when all vertices are visited
+        // stop when all vertices are areVisited
         /*
             Overall complexity:
              * at the most n (= number of nodes) iterations
@@ -73,7 +69,7 @@ public class PrimAlgorithm {
                 edgeWeight = minEdge.getThird();
             }
 
-            // set the selected adjacent node as visited    O(1)
+            // set the selected adjacent node as areVisited    O(1)
             if (visitedNodes.contains(from)) {
                 this.visitedNodes.add(to);
                 visitingNode = to;
@@ -83,7 +79,7 @@ public class PrimAlgorithm {
                 visitingNode = from;
             }
 
-            // get the right reference from new visited node    O(1)
+            // get the right reference from new areVisited node    O(1)
             visitingNode = this.graph.getNodes().get(visitingNode.getLabel());
 
             // add found weight to total cost
